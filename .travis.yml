@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "8"
+script:
+  - yarn buildEnv &
+  - sleep 10
+  - yarn setup:server &
+  - sleep 10
+  - yarn setup:client &
+  - sleep 10
