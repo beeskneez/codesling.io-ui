@@ -7,25 +7,33 @@ import Button from '../globals/Button';
 import Input from '../globals/forms/Input';
 
 class Chat extends Component {
-  state = {
-    // messages: [],
-    message: ''
-   }
+  constructor(){
+    super();
+    this.state = {
+      // messages: [],
+      message: ''
+     }
+  }
 
   componentDidMount() {
-    console.log(this);
+    console.log(localStorage);
+    console.log(this.props);
   }
 
   handleMessageInput = (event) => {
     const { name, value } = event.target;
     this.setState ({ [name]: value });
-    console.log(this.state);
   }
 
   sendMessage() {
-    console.log('sending message');
+    const { message } = this.state;
+    const user = localStorage.email;
+    if (message) {
+      socket.emit('msg', {message: message, user: user});
+    }
   }
   
+
   render() {
     return (
       <div>
