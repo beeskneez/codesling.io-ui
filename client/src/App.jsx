@@ -26,7 +26,9 @@ class App extends Component {
           <Route path='/home' component={(props) => (
             <Protected component={Home} {...props} />
           )}/>
-          <Route path='/friends' component={Friends} />
+          <Route path='/friends' component={(props) => (
+            <Protected component={Friends} {...props} />
+          )}/>
           <Route path='/addChallenge' component={AddChallenge} />
           <Route path='/challenge' component={(props) => (
             <Protected component={Challenge} {...props} />
