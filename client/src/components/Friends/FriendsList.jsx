@@ -1,18 +1,10 @@
 import React from "react";
 
-export const FriendsList = ({ friends }) => {
+export const FriendsList = (props) => {
   return (
     <div>
-      <h1>herro</h1>
-      {friends.map(user => {
-        <div>{user.friend_id}</div>
-      })}
+      <div><b>{props.user.username}</b>      KDR: {props.user.kdr}</div>
+      <a onClick={() => props.deleteFriend(props.user)}>Remove</a>
     </div>
   );
 };
-
-// {
-//   friends.map(friend => {
-//     <div>Hello</div>;
-//   });
-// }
