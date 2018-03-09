@@ -8,8 +8,12 @@ class Friends extends Component {
     friends: [],
   };
 
-  componentDidMount() {
-    this.fetchFriends();
+  async componentWillMount() {
+    const id = localStorage.getItem("id");
+    const { data } = await axios.get(`http://localhost:3396/api/friends/fetchAllFriends/${id}`);
+    this.setState({ friends: data });
+    console.log(this.state.friends);
+
   }
   
   deleteFriend(e) {
@@ -22,30 +26,20 @@ class Friends extends Component {
 
   fetchFriends = async () => {
     const id = localStorage.getItem("id");
-    console.log('our id', id)
     const { data } = await axios.get(`http://localhost:3396/api/friends/fetchAllFriends/${id}`);
-    console.log('within fetchFriends', data)
-    this.setState({ friends: data.rows });
-    console.log(this.state.friends)
+    this.setState({ friends: data });
   }
 
   render() {
-    const list = this.state.friends.length ? (
-      <div>
-      {this.state.friends.map(user => {
-        <div>{user.username}</div>
-      })}
-      </div>
-    ) : (
-      <div>fail</div>
-    );
-
-    return(
+    
+    return (
       <div className="landing-page-container">
         <Logo className="landing-page-logo" />
         <br />
         <h5>Friends:</h5>
-        {list}
+        {this.state.friends.map((user) => 
+          <div>{user.username}</div>
+        )}
       </div>
     )
   }
