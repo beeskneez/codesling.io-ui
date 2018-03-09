@@ -27,12 +27,12 @@ class Friends extends Component {
     const id = localStorage.getItem("id");
     const username = this.state.friend;
     const {data} = await axios.get(`http://localhost:3396/api/users/fetchUsername/${username}`)
-    const fid = data[0].id;
+    const fid = data[0].id + "";
     const body = {
       user_id: id,
       friend_id: fid,
     }
-    const added = await axios.post(`http://localhost:3396/api/friends/addFriend/`, body)
+    const added = await axios.post(`http://localhost:3396/api/friends/addFriend`, body)
   }
 
   handleFriendInput = (event) => {
@@ -45,7 +45,6 @@ class Friends extends Component {
     const {data} = await axios.get(
       `http://localhost:3396/api/friends/fetchAllFriends/${id}`
     );
-    console.log(data)
     this.setState({ friends: data });
   };
 
