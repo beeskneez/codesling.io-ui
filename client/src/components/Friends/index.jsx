@@ -7,7 +7,7 @@ import { FriendsList } from "./FriendsList.jsx";
 
 class Friends extends Component {
   state = {
-    friends: []
+    friends: [],
   }
 
   componentWillMount() {
@@ -26,12 +26,13 @@ class Friends extends Component {
   addFriend = async () => {
     const id = localStorage.getItem("id");
     const username = this.state.friend;
-    console.log(username)
-    const friend = await axios.get(`http://localhost:3396/api/users/fetchUsername/${username}`)
-    console.log('our friends!!!!', friend)
-    // const { data } = await axios.post(
-    //   `http://localhost:3396/api/friends/addFriend/`
-    // );
+    const {data} = await axios.get(`http://localhost:3396/api/users/fetchUsername/${username}`)
+    const fid = data[0].id;
+    const body = {
+      user_id: id,
+      friend_id: fid,
+    }
+    const added = await axios.post(`http://localhost:3396/api/friends/addFriend/`, body)
   }
 
   handleFriendInput = (event) => {
@@ -41,9 +42,10 @@ class Friends extends Component {
 
   fetchFriends = async () => {
     const id = localStorage.getItem("id");
-    const { data } = await axios.get(
+    const {data} = await axios.get(
       `http://localhost:3396/api/friends/fetchAllFriends/${id}`
     );
+    console.log(data)
     this.setState({ friends: data });
   };
 
