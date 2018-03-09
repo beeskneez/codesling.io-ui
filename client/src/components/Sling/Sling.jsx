@@ -7,6 +7,7 @@ import { throttle } from 'lodash';
 import Stdout from './StdOut/index.jsx';
 import EditorHeader from './EditorHeader';
 import Button from '../globals/Button';
+import Chat from '../Chat/index.jsx';
 
 import 'codemirror/mode/javascript/javascript.js';
 import 'codemirror/lib/codemirror.css';
@@ -108,6 +109,7 @@ class Sling extends Component {
             color="white"
             onClick={() => this.submitCode()}
           />
+        <Chat />
         </div>
         <div className="code2-editor-container">
           <CodeMirror 
