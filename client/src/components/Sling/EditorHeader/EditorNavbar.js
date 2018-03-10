@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class EditorNavbar extends Component {
   state = {
@@ -25,17 +26,22 @@ class EditorNavbar extends Component {
   }
 
   logout = () => {
-    console.log('logout buttonzzzz')
+    window.localStorage.clear()
   }
 
   render() {
     return (
       <nav className="editor-navbar">
         <ul>
-          
+          <a>
           <li>{this.formattedSeconds(this.state.secondsElapsed)}</li>
-          <li>History</li>
-          <li>Logout</li>
+          </a>
+          <Link to='/history'>
+            <li>History</li>
+          </Link>
+          <Link to='/'>
+            <li onClick={this.logout}>Logout</li>
+          </Link>
         </ul>
       </nav>
     );
