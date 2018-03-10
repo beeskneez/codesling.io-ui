@@ -8,13 +8,11 @@ const Logo = ({
 }) => {
   return (
     <Link to='/home'>
-      <a>
-        <img 
-          alt="Codesling.io Logo"
-          className={`logo ${className ? className : ''}`}
-          src={codeslingLogo}
-        />
-      </a>
+      <img 
+        alt="Codesling.io Logo"
+        className={`logo ${className ? className : ''}`}
+        src={codeslingLogo}
+      />
     </Link>
   );
 };
