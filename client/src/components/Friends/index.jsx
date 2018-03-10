@@ -63,7 +63,7 @@ class Friends extends Component {
         <br />
         <br />
         <form>
-          <Input name="friend" type="friend" placeholder="Add a friend" onChange={this.handleFriendInput} />
+          <Input name="friend" type="friend" placeholder="Enter Username" onChange={this.handleFriendInput} />
           <Button backgroundColor="red" color="white" text="Add" onClick={() => this.addFriend()} />
         </form>
       </div>
