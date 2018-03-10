@@ -4,14 +4,15 @@ export const HistoryList = ({ history }) => {
   let outcome;
   return (
     <div>
-      {history.map(hist => {
+      {history.map((hist, index) => {
         outcome = hist.outcome === 0 ? 'Loss' : 'Win';
         return (
-          <li>
+          <div key={index}>
             <div>{outcome}</div>
-            <div>Opponent: {hist.receiver.rows[0].username}</div>
+            <div>Opponent: {hist.user.rows[0].username}</div>
             <div>Clout Earned: {hist.clout}</div>
-          </li>
+            <br />
+          </div>
         )})}
     </div>
   )
