@@ -6,18 +6,24 @@ import io from 'socket.io-client/dist/socket.io.js';
 import Button from '../globals/Button';
 import Input from '../globals/forms/Input';
 
+import './Chat.css';
+
 class Chat extends Component {
   constructor(){
     super();
     this.state = {
-      // messages: [],
+      messages: [],
       message: ''
      }
   }
 
   componentDidMount() {
-    console.log(localStorage);
-    console.log(this.props);
+    this.props.socket.on('newmsg', (data) => {
+      let messageArr = [data];
+      this.setState ({
+        messages: this.state.messages.concat(messageArr)
+      })
+    })
   }
 
   handleMessageInput = (event) => {
@@ -27,9 +33,9 @@ class Chat extends Component {
 
   sendMessage() {
     const { message } = this.state;
-    const user = localStorage.email;
+    const user = localStorage.getItem("email");
     if (message) {
-      socket.emit('msg', {message: message, user: user});
+      this.props.socket.emit('msg', {message: message, user: user});
     }
   }
   
@@ -37,7 +43,10 @@ class Chat extends Component {
   render() {
     return (
       <div>
-        <div>This is the chat area. Meow.</div>
+        <div className="chat-box">
+          <div>{this.state.messages.map(message => 
+            <div>{message.user}: {message.message}</div>)}</div>
+        </div>
         <Input name="message" type="message" placeholder="Enter Trashtalk Here" onChange={this.handleMessageInput}/>
         <Button
             className="run-btn"
