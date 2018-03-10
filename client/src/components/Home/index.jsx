@@ -13,17 +13,19 @@ class Home extends Component {
   state = {
     allChallenges: [],
     selectedChallenge: {}
-   }
+  };
 
-   async componentDidMount() {
-    const id = localStorage.getItem('id');
-    const { data } = await axios.get(`http://localhost:3396/api/usersChallenges/${id}`)
+  async componentDidMount() {
+    const id = localStorage.getItem("id");
+    const { data } = await axios.get(
+      `http://localhost:3396/api/usersChallenges/${id}`
+    );
     this.setState({ allChallenges: data.rows });
-   }
+  }
 
   randomSlingId = () => {
     slingId = `${randomstring.generate()}`;
-  }
+  };
 
   handleDuelClick = () => {
     this.randomSlingId();
@@ -33,36 +35,35 @@ class Home extends Component {
         challenge: this.state.selectedChallenge
       }
     });
-  }
-  
-  handleAddChallengeClick = () => {
-    this.props.history.push('/addChallenge');
-  }
+  };
 
-  handleChallengeSelect = (e) => {
+  handleAddChallengeClick = () => {
+    this.props.history.push("/addChallenge");
+  };
+
+  handleFriendsClick = () => {
+    this.props.history.push("/friends");
+  };
+
+  handleChallengeSelect = e => {
     e.preventDefault();
     const { value } = e.target;
     this.setState({ selectedChallenge: value });
-  }
+  };
 
   render() {
     return (
       <div className="landing-page-container">
-        <Logo
-          className="landing-page-logo"
-        />
+        <Logo className="landing-page-logo" />
         <br />
-        <select onChange={(e) => this.handleChallengeSelect(e)}>
+        <select onChange={e => this.handleChallengeSelect(e)}>
           {this.state.allChallenges.map((challenge, index) => {
             return (
-            <option
-              value={JSON.stringify(challenge)}
-              key={index}
-            >
-              {challenge.title}
-            </option>)
-          }
-          )}
+              <option value={JSON.stringify(challenge)} key={index}>
+                {challenge.title}
+              </option>
+            );
+          })}
         </select>
         <br />
         <br />
@@ -78,6 +79,13 @@ class Home extends Component {
           color="white"
           text="Duel"
           onClick={() => this.handleDuelClick()}
+        />
+        <br />
+        <Button
+          backgroundColor="red"
+          color="white"
+          text="Friends"
+          onClick={() => this.handleFriendsClick()}
         />
       </div>
     );
